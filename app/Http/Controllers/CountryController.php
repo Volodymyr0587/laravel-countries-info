@@ -28,7 +28,7 @@ class CountryController extends Controller
         //     $query->where('official_lang_code', $request->input('official_lang_code'));
         // }
 
-        $countries = $query->orderBy('name')->paginate(15);
+        $countries = $query->orderBy('name')->paginate(10);
 
         // $languages = Country::distinct('official_lang_code')->pluck('official_lang_code')->filter();
 
