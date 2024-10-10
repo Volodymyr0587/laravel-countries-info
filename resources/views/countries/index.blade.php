@@ -12,7 +12,7 @@
     <body class="bg-gray-100">
         <div class="container mx-auto px-4 py-8">
             <h1 class="text-3xl font-bold mb-6">
-                <a href="{{ route('countries.index') }}">Countries</a>
+                <a href="{{ route('countries.index') }}" class="text-blue-500 hover:underline">Countries</a>
             </h1>
 
             <form action="{{ route('countries.index') }}" method="GET" class="mb-6">
