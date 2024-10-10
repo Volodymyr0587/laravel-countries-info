@@ -20,9 +20,22 @@ class Country extends Model
         'official_lang_code',
         'is_receiving_quest',
         'geo_point_2d',
+        'phone_code',
+        'languages',
+        'currencies',
     ];
 
-    protected $casts = [
-        'geo_point_2d' => 'array',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'geo_point_2d' => 'array',
+            'languages' => 'array',
+            'currencies' => 'array',
+        ];
+    }
 }

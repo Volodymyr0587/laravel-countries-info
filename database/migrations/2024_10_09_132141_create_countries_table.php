@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('official_lang_code')->nullable();
             $table->string('is_receiving_quest')->nullable();
             $table->json('geo_point_2d')->nullable();
+            $table->string('phone_code')->nullable();
+            $table->json('languages')->nullable();
+            $table->json('currencies')->nullable();
             $table->timestamps();
         });
     }

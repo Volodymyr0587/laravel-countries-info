@@ -13,43 +13,45 @@ class CountrySeeder extends Seeder
     {
         $this->command->info('Fetching all countries data...');
 
-        // Читання JSON-файлу з даними
+        // Читання JSON-файлу з основними даними про країни
         $json = File::get(database_path('seeders/countries-codes.json'));
-
         $countries = json_decode($json, true);
 
         $this->command->info('Total countries fetched: ' . count($countries));
 
-        foreach ($countries as $country) {
-            Country::updateOrCreate(
-                ['iso2_code' => $country['iso2_code']],
-                [
-                    'name' => $country['label_en'],
-                    'alpha2' => $country['iso2_code'],
-                    'alpha3' => $country['iso3_code'],
-                    'country_code' => $country['onu_code'],
-                    'iso2_code' => $country['iso2_code'],
-                    'is_ilo_member' => $country['is_ilomember'],
-                    'official_lang_code' => $country['official_lang_code'],
-                    'is_receiving_quest' => $country['is_receiving_quest'],
-                    'geo_point_2d' => json_encode($country['geo_point_2d']),
-                ]
-            );
-        }
-
-        // Add phone codes
-        // Read phone codes data
+        // Читання JSON-файлу з телефонними кодами
         $phoneCodesJson = File::get(database_path('seeders/countries-phone-codes.json'));
         $phoneCodes = json_decode($phoneCodesJson, true);
 
-        // Match phone codes with existing countries
-        foreach ($phoneCodes as $phoneCode) {
-            $country = Country::where('iso2_code', $phoneCode['code'])->first();
+        // Читання JSON-файлу з мовами та валютами
+        $langCurrencyJson = File::get(database_path('seeders/languages-currencyISO.json'));
+        $langCurrencyData = json_decode($langCurrencyJson, true);
 
-            if ($country) {
-                $country->phone_code = $phoneCode['dial_code'];
-                $country->save();
-            }
+        // Створення асоціативних масивів для швидкого пошуку
+        $phoneCodeMap = array_column($phoneCodes, 'dial_code', 'code');
+        $langCurrencyMap = array_column($langCurrencyData, null, 'code');
+
+        foreach ($countries as $country) {
+            $iso2Code = $country['iso2_code'];
+
+            $languagesAndCurrencies = $langCurrencyMap[$iso2Code] ?? null;
+
+            Country::updateOrCreate(
+                ['iso2_code' => $iso2Code],
+                [
+                    'name' => $country['label_en'],
+                    'alpha2' => $iso2Code,
+                    'alpha3' => $country['iso3_code'],
+                    'country_code' => $country['onu_code'],
+                    'is_ilo_member' => $country['is_ilomember'],
+                    'official_lang_code' => $country['official_lang_code'],
+                    'is_receiving_quest' => $country['is_receiving_quest'],
+                    'geo_point_2d' => $country['geo_point_2d'],
+                    'phone_code' => $phoneCodeMap[$iso2Code] ?? null,
+                    'languages' => $languagesAndCurrencies['languages'] ?? [],
+                    'currencies' => $languagesAndCurrencies['currencysISO'] ?? [],
+                ]
+            );
         }
 
         $this->command->info('All countries data has been fetched and saved.');
