@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Countries</title>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        @vite('resources/css/app.css')
     </head>
 
     <body class="bg-gray-100">
@@ -88,7 +88,7 @@
                 </tbody>
             </table>
 
-            <div class="mt-6">
+            <div class="mt-6 grid grid-cols-2 gap-10">
                 {{ $countries->links() }}
             </div>
         </div>
