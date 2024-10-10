@@ -16,7 +16,7 @@
             </h1>
 
             <form action="{{ route('countries.index') }}" method="GET" class="mb-6">
-                <input type="text" name="search" placeholder="Search countries" class="p-2 border rounded"
+                <input type="text" name="search" placeholder="Search..." class="p-2 border rounded"
                     value="{{ request('search') }}">
                 {{-- <select name="is_ilo_member" class="p-2 border rounded">
                     <option value="">ILO Membership</option>

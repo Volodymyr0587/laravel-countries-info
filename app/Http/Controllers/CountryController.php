@@ -15,7 +15,9 @@ class CountryController extends Controller
             $search = $request->input('search');
             $query->where('name', 'like', "%{$search}%")
                   ->orWhere('alpha2', 'like', "%{$search}%")
-                  ->orWhere('alpha3', 'like', "%{$search}%");
+                  ->orWhere('alpha3', 'like', "%{$search}%")
+                  ->orWhere('phone_code', 'like', "%{$search}%")
+                  ->orWhere('currencies', 'like', "%{$search}%");
         }
 
         // if ($request->has('is_ilo_member')) {
