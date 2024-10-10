@@ -18,18 +18,16 @@
             <form action="{{ route('countries.index') }}" method="GET" class="mb-6">
                 <input type="text" name="search" placeholder="Search..." class="p-2 border rounded"
                     value="{{ request('search') }}">
-                {{-- <select name="is_ilo_member" class="p-2 border rounded">
+                <select name="is_ilo_member" class="p-2 border rounded">
                     <option value="">ILO Membership</option>
-                    <option value="Y" {{ request('is_ilo_member')=='Y' ? 'selected' : '' }}>Yes</option>
-                    <option value="N" {{ request('is_ilo_member')=='N' ? 'selected' : '' }}>No</option>
+                    <option value="Y" {{ request('is_ilo_member') == 'Y' ? 'selected' : '' }}>Yes</option>
+                    <option value="N" {{ request('is_ilo_member') == 'N' ? 'selected' : '' }}>No</option>
                 </select>
-                <select name="official_lang_code" class="p-2 border rounded">
-                    <option value="">All Languages</option>
-                    @foreach($languages as $language)
-                    <option value="{{ $language }}" {{ request('official_lang_code')==$language ? 'selected' : '' }}>{{
-                        $language }}</option>
-                    @endforeach
-                </select> --}}
+                <select name="is_receiving_quest" class="p-2 border rounded">
+                    <option value="">Receiving guests</option>
+                    <option value="Y" {{ request('is_receiving_quest') == 'Y' ? 'selected' : '' }}>Yes</option>
+                    <option value="N" {{ request('is_receiving_quest') == 'N' ? 'selected' : '' }}>No</option>
+                </select>
                 <button type="submit" class="bg-blue-500 text-white p-2 rounded">Search</button>
             </form>
 
